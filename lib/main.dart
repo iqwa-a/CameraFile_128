@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:materi_camera/bloc/camera_bloc.dart';
-import 'package:materi_camera/home_page.dart';
 import 'package:materi_camera/home_page_bc.dart';
 
 void main() {
