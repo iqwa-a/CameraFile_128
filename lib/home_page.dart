@@ -97,7 +97,10 @@ class _HomePageState extends State<HomePage> {
                     },
                   ),
                 ],
-              ),
+              )
+            else
+              const Text('Belum ada gambar yang diambil/dipilih.'),
+            const SizedBox(height: 20)
           ],
         ),
       ),
