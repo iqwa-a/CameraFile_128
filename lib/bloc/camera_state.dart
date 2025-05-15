@@ -15,7 +15,24 @@ final class CameraReady extends CameraState {
     required this.controller,
     required this.selectedIndex,
     required this.flashMode,
-    required this.imageFile,
-    required this.snackBarMessage,
+     this.imageFile,
+    this.snackBarMessage,
   });
+  CameraReady copyWith({
+    CameraController? controller,
+    int? selectedIndex,
+    FlashMode? flashMode,
+    File? imageFile,
+    String? snackBarMessage,
+    bool clearSnackbar = false,
+  }){
+    return CameraReady(
+      controller: controller ?? this.controller, 
+      selectedIndex: selectedIndex ?? this.selectedIndex, 
+      flashMode: flashMode ?? this.flashMode, 
+      imageFile: imageFile ?? this.imageFile,
+      snackBarMessage: 
+          clearSnackbar ? null : snackBarMessage ?? this.snackBarMessage,
+    );
+  }
 }
