@@ -153,7 +153,8 @@ class _CameraPageState extends State<CameraPage> {
                   value: _zoom,
                   min: _minZoom,
                   max: _maxZoom,
-                  divisions: ((_maxZoom - _minZoom) * 10).toInt(),
+                    // divisions: ((_minZoom - _maxZoom) * 10).toInt(),
+                  divisions: (_maxZoom > _minZoom) ? ((_maxZoom - _minZoom) * 10).toInt():null,
                   label: '${_zoom.toStringAsFixed(1)}x', 
                   onChanged: (value) => _setZoom(value),
                 ) 
