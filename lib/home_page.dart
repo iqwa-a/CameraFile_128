@@ -27,8 +27,8 @@ class _HomePageState extends State<HomePage> {
       context,
       MaterialPageRoute(builder: (_) => const CameraPage()),
     );
-    if (result == null) {
-      final saved = await StorageHelper.saveImage(result!, 'camera');
+    if (result != null) {
+      final saved = await StorageHelper.saveImage(result, 'camera');
       setState(() => _imageFile = saved);
       ScaffoldMessenger.of(
         context,
@@ -90,7 +90,7 @@ class _HomePageState extends State<HomePage> {
                     label: const Text('Hapus Gambar'),
                     onPressed: () async {
                       await _imageFile?.delete();
-                      setState(() => _imageFile == null);
+                    setState(() => _imageFile = null);
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Gambar dihapus')),
                       );
