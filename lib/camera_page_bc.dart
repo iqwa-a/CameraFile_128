@@ -47,6 +47,32 @@ class _CameraPageBcState extends State<CameraPageBc> {
   }
 
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: BlocBuilder<CameraBloc, CameraState>(
+        builder: (context, state) {
+          if (state is! CameraReady) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          return LayoutBuilder(
+            builder: (context, constraints) {
+              return Stack(
+                fit: StackFit.expand,
+                children: [
+                  GestureDetector(
+                    onTapDown: (details) {
+                      context.read<CameraBloc>().add(
+                        TapToFocus(details.localPosition, constraints.biggest),
+                      );
+                    },
+                    child: CameraPreview(state.controller),
+                  ),
+                ],
+              );
+            },
+          );
+        },
+      ),
+    );
   }
 }
