@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:materi_camera/bloc/camera_event.dart';
 import 'package:materi_camera/bloc/camera_state.dart';
 
@@ -65,5 +66,17 @@ class CameraBloc extends Bloc<CameraEvent, CameraState> {
     );
     await s.controller.setFocusPoint(relative);
     await s.controller.setExposurePoint(relative);
+  }
+  Future<void> _onPickGallery(
+        PickImageFromGallery event, Emitter<CameraState> emit) async {
+      if (state is! CameraReady) return;
+      final picker = ImagePicker();
+      final picked = await picker.pickImage(source: ImageSource.gallery);
+      final file = File(picked!.path);
+      emit ((state as CameraReady).copyWith(
+        imageFile: file,
+        snackBarMessage: 'Berhasil memilih dari galeri',
+      )
+    );
   }
 }
