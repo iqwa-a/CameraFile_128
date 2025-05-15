@@ -20,6 +20,7 @@ class _HomePageState extends State<HomePage> {
     await Permission.storage.request();
     await Permission.manageExternalStorage.request();
   }
+
   Future<void> _takePicture() async {
     await _requestPermissions();
     final File? result = await Navigator.push<File>(
@@ -61,18 +62,33 @@ class _HomePageState extends State<HomePage> {
                   child: ElevatedButton.icon(
                     icon: const Icon(Icons.camera),
                     label: const Text('Ambil Foto'),
-                    onPressed: _takePicture
+                    onPressed: _takePicture,
                   ),
-                  ),
+                ),
                 ElevatedButton.icon(
                   icon: const Icon(Icons.folder),
                   label: const Text('Pilih dari Galeri'),
-                  onPressed: _pickFromGallery, 
-                ), 
+                  onPressed: _pickFromGallery,
+                ),
               ],
-            )
+            ),
+            const SizedBox(height: 20),
+            if (_imageFile != null)
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.file(_imageFile!, width: double.infinity),
+                  ),
+                  Text(
+                    'Gambar disimpan di: ${_imageFile?.path ?? 'Tidak ada'}',
+                    style: const TextStyle(fontSize: 12),
+                  ),
+                ],
+              ),
           ],
-        )),
+        ),
+      ),
     );
   }
 }
