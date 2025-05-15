@@ -63,6 +63,11 @@ class _HomePageState extends State<HomePage> {
                     label: const Text('Ambil Foto'),
                     onPressed: _takePicture
                   ),
+                  ),
+                ElevatedButton.icon(
+                  icon: const Icon(Icons.folder),
+                  label: const Text('Pilih dari Galeri'),
+                  onPressed: _pickFromGallery, 
                 ), 
               ],
             )
