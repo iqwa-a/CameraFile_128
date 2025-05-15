@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:camera/camera.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:materi_camera/bloc/camera_event.dart';
 import 'package:materi_camera/bloc/camera_state.dart';
 
@@ -46,4 +47,23 @@ class CameraBloc extends Bloc<CameraEvent, CameraState> {
       await s.controller.setFlashMode(next);
       emit(s.copyWith(flashMode: next));
     }
+    Future<void> _onTakePicture(
+    TakePicture event, Emitter<CameraState> emit) async {
+      if (state is! CameraReady) return;
+      final s = state as CameraReady;
+      final file = await s.controller.takePicture();
+      event.onPictureTaken(File(file.path)
+    );
+  }
+
+  Future<void> _onTapFocus(TapToFocus event, Emitter<CameraState> emit) async {
+    if (state is! CameraReady) return;
+    final s = state as CameraReady;
+    final relative = Offset(
+      event.position.dx / event.previewSize.width, 
+      event.position.dy / event.previewSize.height
+    );
+    await s.controller.setFocusPoint(relative);
+    await s.controller.setExposurePoint(relative);
+  }
 }
